@@ -1,5 +1,5 @@
-const InvariantError = require('../../exceptions/InvariantError');
 const { AcaraPayloadSchema } = require('./schema');
+const InvariantError = require('../../exceptions/InvariantError');
 
 const AcaraValidator = {
     validateAcaraPayload: (payload) => {
@@ -7,7 +7,7 @@ const AcaraValidator = {
         if (validationResult.error) {
             throw new InvariantError(validationResult.error.message);
         }
-    }
+    },
 }
 
 module.exports = AcaraValidator;

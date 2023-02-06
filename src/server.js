@@ -5,18 +5,28 @@ const Hapi = require('@hapi/hapi');
 const Jwt = require('@hapi/jwt');
 const ClientError = require('./exceptions/ClientError');
 
-
 // default plugin
 const defaultPlugin = require('./api/default');
-
 
 // acara plugin
 const acara = require('./api/acara');
 const AcaraServices = require('./services/postgres/AcaraServices');
 const AcaraValidator = require('./validator/acara');
 
+// kegiatan plugin
+const kegiatan = require('./api/kegiatan');
+const KegiatanServices = require('./services/postgres/KegiatanServices');
+const KegiatanValidator = require('./validator/kegiatan');
+
+// kegiatan fisik plugin
+const kegiatanFisik = require('./api/kegiatanFisik');
+const KegiatanFisikServices = require('./services/postgres/KegiatanFisikServices');
+const KegiatanFisikValidator = require('./validator/kegiatanFisik');
+
 const init = async () => {
     const acaraService = new AcaraServices();
+    const kegiatanService = new KegiatanServices();
+    const kegiatanFisikService = new KegiatanFisikServices();
 
     const server = Hapi.server({
         port: process.env.PORT,
@@ -63,6 +73,20 @@ const init = async () => {
             options: {
                 service: acaraService,
                 validator: AcaraValidator,
+            }
+        },
+        {
+            plugin: kegiatan,
+            options: {
+                service: kegiatanService,
+                validator: KegiatanValidator,
+            }
+        },
+        {
+            plugin: kegiatanFisik,
+            options: {
+                service: kegiatanFisikService,
+                validator: KegiatanFisikValidator,
             }
         },
     ])

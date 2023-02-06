@@ -28,7 +28,7 @@ class KegiatanServices {
 
     async getKegiatan() {
 
-        const result = await this._pool.query('SELECT id, name, year, acaraId FROM kegiatan');
+        const result = await this._pool.query('SELECT id, name, year FROM kegiatan');
         return result.rows;
 
     }
@@ -36,7 +36,7 @@ class KegiatanServices {
     async getKegiatanById(id) {
 
         const query = {
-            text: 'SELECT id, name, year, acaraId FROM kegiatan WHERE id = $1',
+            text: 'SELECT id, name, year FROM kegiatan WHERE id = $1',
             values: [id],
         }
 
@@ -52,7 +52,7 @@ class KegiatanServices {
     async editKegiatanById(id, { namaKegiatan, tahunKegiatan, idAcara }) {
 
         const query = {
-            text: 'UPDATE kegiatan SET name = $1, year = $2, acaraId = $3 WHERE id = $4 RETURNING id',
+            text: 'UPDATE kegiatan SET name = $1, year = $2, "acaraId" = $3 WHERE id = $4 RETURNING id',
             values: [namaKegiatan, tahunKegiatan, idAcara, id],
         }
 

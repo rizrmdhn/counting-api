@@ -70,6 +70,7 @@ class AcaraHandler {
 
     async deleteAcaraByIdHandler(request) {
 
+        
         const { id } = request.params;
 
         await this._service.deleteAcaraById(id);
