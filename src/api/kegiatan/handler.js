@@ -14,9 +14,9 @@ class KegiatanHandler {
     async postKegiatanHandler(request, h) {
 
         this._validator.validateKegiatanPayload(request.payload);
-        const { namaKegiatan, tahunKegiatan } = request.payload;
+        const { namaKegiatan, tahunKegiatan, acaraId } = request.payload;
 
-        const kegiatanId = await this._service.addKegiatan({ namaKegiatan, tahunKegiatan });
+        const kegiatanId = await this._service.addKegiatan({ namaKegiatan, tahunKegiatan, acaraId });
 
         const response = h.response({
             status: 'success',
@@ -58,10 +58,10 @@ class KegiatanHandler {
     async putKegiatanByIdHandler(request) {
 
         this._validator.validateKegiatanPayload(request.payload);
-        const { namaKegiatan, tahunKegiatan } = request.payload;
+        const { namaKegiatan, tahunKegiatan, acaraId } = request.payload;
         const { id } = request.params;
 
-        await this._service.editKegiatanById(id, { namaKegiatan, tahunKegiatan });
+        await this._service.editKegiatanById(id, { namaKegiatan, tahunKegiatan, acaraId });
 
         return {
             status: 'success',

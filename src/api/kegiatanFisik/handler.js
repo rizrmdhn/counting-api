@@ -14,9 +14,9 @@ class KegiatanFisikHandler {
     async postKegiatanFisikHandler(request, h) {
 
         this._validator.validateKegiatanFisikPayload(request.payload);
-        const { namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, danaKegiatanFisik } = request.payload;
+        const { namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, alokasiDanaKegiatanFisik, kegiatanId } = request.payload;
 
-        const kegiatanFisikId = await this._service.addKegiatanFisik({ namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, danaKegiatanFisik });
+        const kegiatanFisikId = await this._service.addKegiatanFisik({ namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, alokasiDanaKegiatanFisik, kegiatanId });
 
         const response = h.response({
             status: 'success',
@@ -58,10 +58,10 @@ class KegiatanFisikHandler {
     async putKegiatanFisikByIdHandler(request) {
 
         this._validator.validateKegiatanFisikPayload(request.payload);
-        const { namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, danaKegiatanFisik } = request.payload;
+        const { namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, alokasiDanaKegiatanFisik, kegiatanId } = request.payload;
 
         const { id } = request.params;
-        await this._service.editKegiatanFisikById(id, { namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, danaKegiatanFisik });
+        await this._service.editKegiatanFisikById(id, { namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, alokasiDanaKegiatanFisik, kegiatanId });
 
         return {
             status: 'success',

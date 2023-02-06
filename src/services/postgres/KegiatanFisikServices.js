@@ -8,13 +8,13 @@ class KegiatanFisikServices {
         this._pool = new Pool();
     }
 
-    async addKegiatanFisik({ namaKegiatanFisik, quantityKegiatanFiski, unitKegiatanFiski, alokasiDanaKegiatanFiski, kegiatanId }) {
+    async addKegiatanFisik({ namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, alokasiDanaKegiatanFisik, kegiatanId }) {
 
         const id = `kegiatan-fisik-${nanoid(16)}`;
 
         const query = {
             text: 'INSERT INTO "kegiatan-fisik" VALUES($1, $2, $3, $4, $5, $6) RETURNING id',
-            values: [id, namaKegiatanFisik, quantityKegiatanFiski, unitKegiatanFiski, alokasiDanaKegiatanFiski, kegiatanId],
+            values: [id, namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, alokasiDanaKegiatanFisik, kegiatanId],
         }
 
         const result = await this._pool.query(query);
@@ -50,11 +50,11 @@ class KegiatanFisikServices {
         return result.rows[0];
     }
 
-    async editKegiatanFisikById(id, { namaKegiatanFisik, quantityKegiatanFiski, unitKegiatanFiski, alokasiDanaKegiatanFiski, kegiatanId }) {
+    async editKegiatanFisikById(id, { namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, alokasiDanaKegiatanFisik, kegiatanId }) {
 
         const query = {
             text: 'UPDATE "kegiatan-fisik" SET name = $1, quantity = $2, unit = $3, price = $4, "kegiatanId" = $5 WHERE id = $6 RETURNING id',
-            values: [namaKegiatanFisik, quantityKegiatanFiski, unitKegiatanFiski, alokasiDanaKegiatanFiski, kegiatanId, id],
+            values: [namaKegiatanFisik, quantityKegiatanFisik, unitKegiatanFisik, alokasiDanaKegiatanFisik, kegiatanId, id],
         }
 
         const result = await this._pool.query(query);

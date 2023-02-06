@@ -1,8 +1,11 @@
 const Joi = require('joi');
 
 const KegiatanFisikPayloadSchema = Joi.object({
-    name: Joi.string().required(),
-    year: Joi.number().integer().min(1900).max(3000).required(),
+    namaKegiatanFisik: Joi.string().required(),
+    quantityKegiatanFisik: Joi.number().required(),
+    unitKegiatanFisik: Joi.string().required(),
+    alokasiDanaKegiatanFisik: Joi.number().required(),
+    kegiatanId: Joi.string().required(),
 });
 
 const KegiatanFisikIdPayloadSchema = Joi.object({
