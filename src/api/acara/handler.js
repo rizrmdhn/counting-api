@@ -8,6 +8,9 @@ class AcaraHandler {
         this.getAcaraByIdHandler = this.getAcaraByIdHandler.bind(this);
         this.putAcaraByIdHandler = this.putAcaraByIdHandler.bind(this);
         this.deleteAcaraByIdHandler = this.deleteAcaraByIdHandler.bind(this);
+
+        this.getKegiatanByAcaraIdHandler = this.getKegiatanByAcaraIdHandler.bind(this);
+        this.getKegiatanFisikByAcaraIdHandler = this.getKegiatanFisikByAcaraIdHandler.bind(this);
     }
 
     async postAcaraHandler(request, h) {
@@ -70,7 +73,7 @@ class AcaraHandler {
 
     async deleteAcaraByIdHandler(request) {
 
-        
+
         const { id } = request.params;
 
         await this._service.deleteAcaraById(id);
@@ -78,6 +81,50 @@ class AcaraHandler {
         return {
             status: 'success',
             message: 'Acara berhasil dihapus',
+        };
+    }
+
+    async getKegiatanByAcaraIdHandler(request) {
+
+        const { id } = request.params;
+
+        const acara = await this._service.getAcaraById(id);
+        const kegiatan = await this._service.getKegiatanAcaraById(id);
+
+        return {
+            status: 'success',
+            data: {
+                acara: {
+                    ...acara,
+                    kegiatan,
+                },
+            },
+        };
+    }
+
+    async getKegiatanFisikByAcaraIdHandler(request) {
+
+        const { id } = request.params;
+
+        const acara = await this._service.getAcaraById(id);
+        const kegiatan = await this._service.getKegiatanAcaraById(id);
+        const kegiatanFisik = await this._service.getKegiatanFisikAcaraById(id);
+
+
+        kegiatan.forEach((Kegiatan) => {
+            // eslint-disable-next-line no-param-reassign
+            Kegiatan.kegiatanFisik = kegiatanFisik.filter((KegiatanFisik) => KegiatanFisik.kegiatanId === Kegiatan.id);
+        });
+
+        return {
+            status: 'success',
+            data: {
+                acara: {
+                    ...acara,
+                    kegiatan,
+
+                },
+            },
         };
     }
 }

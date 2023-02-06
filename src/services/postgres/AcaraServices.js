@@ -27,6 +27,7 @@ class AcaraServices {
     }
 
     async getAcara() {
+
         const result = await this._pool.query('SELECT id, name, year FROM acara');
         return result.rows;
     }
@@ -74,5 +75,41 @@ class AcaraServices {
             throw new NotFoundError('Acara gagal dihapus. Id tidak ditemukan');
         }
     }
+
+    async getKegiatanAcaraById(id) {
+
+        const query = {
+
+            text: `SELECT kegiatan.id, kegiatan.name, kegiatan.year 
+            FROM kegiatan 
+            INNER JOIN acara 
+            ON acara.id = kegiatan."acaraId"
+            WHERE acara.id = $1`,
+            values: [id],
+        }
+
+        const result = await this._pool.query(query);
+
+        return result.rows;
+    }
+
+    async getKegiatanFisikAcaraById(id) {
+
+        const query = {
+            text: `SELECT "kegiatan-fisik".id, "kegiatan-fisik".name, "kegiatan-fisik".quantity, "kegiatan-fisik".unit, "kegiatan-fisik".price, "kegiatan-fisik"."kegiatanId"
+            FROM "kegiatan-fisik"
+            JOIN kegiatan
+            ON kegiatan.id = "kegiatan-fisik"."kegiatanId"
+            JOIN acara
+            ON acara.id = kegiatan."acaraId"
+            WHERE acara.id = $1`,
+            values: [id],
+        }
+
+        const result = await this._pool.query(query);
+
+        return result.rows;
+    }
 }
+
 module.exports = AcaraServices;
