@@ -110,6 +110,26 @@ class AcaraServices {
 
         return result.rows;
     }
+
+    async getTotalPriceKegiatanFisikAcaraById(id) {
+
+        const query = {
+            text: `SELECT SUM("kegiatan-fisik".price) AS total, "kegiatan-fisik"."kegiatanId"
+            FROM "kegiatan-fisik"
+            JOIN kegiatan
+            ON kegiatan.id = "kegiatan-fisik"."kegiatanId"
+            JOIN acara
+            ON acara.id = kegiatan."acaraId"
+            WHERE acara.id = $1
+            GROUP BY "kegiatan-fisik"."kegiatanId"`,
+            values: [id],
+        }
+
+        const result = await this._pool.query(query);
+
+
+        return result.rows;
+    }
 }
 
 module.exports = AcaraServices;

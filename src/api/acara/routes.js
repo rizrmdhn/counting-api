@@ -31,7 +31,7 @@ const routes = (handler) => [
     },
     {
         method: 'GET',
-        path: '/acara/{id}/kegiatan/{kegiatanId}',
+        path: '/acara/{id}/kegiatan/',
         handler: handler.getKegiatanFisikByAcaraIdHandler,
     },
 ];

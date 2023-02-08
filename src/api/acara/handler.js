@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 class AcaraHandler {
     constructor(service, validator) {
         this._service = service;
@@ -109,21 +110,30 @@ class AcaraHandler {
         const acara = await this._service.getAcaraById(id);
         const kegiatan = await this._service.getKegiatanAcaraById(id);
         const kegiatanFisik = await this._service.getKegiatanFisikAcaraById(id);
+        const totalPrice = await this._service.getTotalPriceKegiatanFisikAcaraById(id);
 
 
         kegiatan.forEach((Kegiatan) => {
-            // eslint-disable-next-line no-param-reassign
             Kegiatan.kegiatanFisik = kegiatanFisik.filter((KegiatanFisik) => KegiatanFisik.kegiatanId === Kegiatan.id);
+            Kegiatan.totalPrice = totalPrice.filter((TotalPrice) => TotalPrice.kegiatanId === Kegiatan.id);
+            if (Kegiatan.totalPrice.length > 0) {
+                Kegiatan.totalPrice = Kegiatan.totalPrice[0].totalPrice;
+            } else {
+                Kegiatan.totalPrice = 0;
+            }
         });
 
         return {
             status: 'success',
             data: {
-                acara: {
-                    ...acara,
-                    kegiatan,
+                acara: [
+                    {
 
-                },
+                        ...acara,
+                        kegiatan,
+
+                    },
+                ],
             },
         };
     }
