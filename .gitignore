@@ -40,10 +40,10 @@ jspm_packages
 # Environment variables
 .env
 
-# # Certificate
-# *.pem
-# *.key
-# *.crt
+# Certificate
+*.pem
+*.key
+*.crt
 
 # Vscode
 .vscode
