@@ -2,7 +2,6 @@
 require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
-const Jwt = require('@hapi/jwt');
 const ClientError = require('./exceptions/ClientError');
 
 // default plugin
@@ -38,12 +37,6 @@ const init = async () => {
         },
     });
 
-    // registrasi plugin eksternal
-    await server.register([
-        {
-            plugin: Jwt,
-        },
-    ])
 
     // server auth strategy
     server.auth.strategy('countingapp_jwt', 'jwt', {
