@@ -117,7 +117,7 @@ class AcaraHandler {
             Kegiatan.kegiatanFisik = kegiatanFisik.filter((KegiatanFisik) => KegiatanFisik.kegiatanId === Kegiatan.id);
             Kegiatan.totalPrice = totalPrice.filter((TotalPrice) => TotalPrice.kegiatanId === Kegiatan.id);
             if (Kegiatan.totalPrice.length > 0) {
-                Kegiatan.totalPrice = Kegiatan.totalPrice[0].totalPrice;
+                Kegiatan.totalPrice = Kegiatan.totalPrice[0].total;
             } else {
                 Kegiatan.totalPrice = 0;
             }
