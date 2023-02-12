@@ -1,18 +1,11 @@
 const { nanoid } = require('nanoid');
 const { Pool } = require('pg');
-const fs = require('fs');
-const path = require('path');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
 class KegiatanServices {
     constructor() {
-        this._pool = new Pool({
-            ssl: {
-                rejectUnauthorized: true,
-                ca: fs.readFileSync(path.join(__dirname, 'certs/ca-certificate.crt')).toString(),
-            }
-        });
+        this._pool = new Pool();
     }
 
     async addKegiatan({ namaKegiatan, tahunKegiatan, acaraId }) {

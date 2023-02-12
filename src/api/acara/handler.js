@@ -123,6 +123,10 @@ class AcaraHandler {
             }
         });
 
+
+        // find kegiatan total price
+        acara.totalPrice = kegiatan.reduce((acc, cur) => parseInt(acc, 10) + parseInt(cur.totalPrice, 10), 0);
+
         return {
             status: 'success',
             data: {
